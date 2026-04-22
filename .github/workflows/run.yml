@@ -1,0 +1,28 @@
+name: Expenses Generator
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+
+      - name: Install packages
+        run: pip install -r requirements.txt
+
+      - name: Run script
+        run: python expenses.py
+
+      - name: Upload file
+        uses: actions/upload-artifact@v3
+        with:
+          name: expenses
+          path: expenses.xlsx
